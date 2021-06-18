@@ -11,7 +11,7 @@ const movies = require("./data");
 
 function getAllDirectors(theArray) { 
   const directors = theArray.map((eachMovie) => {
-    eachMovie.director;
+    return eachMovie.director;
   });
   return directors;
 }
@@ -23,14 +23,23 @@ function getAllDirectors(theArray) {
 
 function howManyMovies(theArray) {
     if (theArray.length === 0) {
-      return null;
+      return 0;
     } else {
-      const whichIsDramaSteven = theArray.filter((eachMovie) {
-      if (eachMovie.director === 'Steven Spielberg' && eachMovie.genre === 'Drama') {
-        return eachMovie.title;
-      }
-    });
-  return whichIsDramaSteven;
+        const dramaStevenTotal = theArray.filter((eachMovie) => {
+          if (eachMovie.director !== 'Steven Spielberg') {
+            return 0;
+          } else {
+            if (eachMovie.director === 'Steven Spielberg' && eachMovie.genre === 'Drama'){
+              return eachMovie.director;
+            }
+            }
+         }
+        )}
+
+      const howManyDramaSteven = dramaStevenTotal.reduce((acc, elem) => {
+        acc + elem.director;
+      })
+  return howManyDramaSteven;
 }
 
 // reduce here? to get number - how many?
@@ -41,32 +50,32 @@ function scoresAverage(theArray) {
     if (theArray.length === 0) {
       return null;
     } else { 
-      const allScores = theArray.reduce((acc, movie)) {
-        return acc + movie.score;
+      const allScores = theArray.reduce((acc, movie) => {
+       acc + movie.score;
       }, 0);
       
     }
   return allScores / theArray.length;
 }
 
+//math.round()
+//parseFloat(allScores/ theArray.length.toFixed(2))
 
 // Iteration 4: Drama movies - Get the average of Drama Movies
 function dramaMoviesScore(theArray) {
     if (theArray.length === 0) {
       return null;
     } else { 
-      const allDrama = theArray.reduce((acc, movie)) {
+      const allDrama = theArray.reduce((acc, movie) => {
         return acc + movie.genre.drama;
       }, 0);
     }
   return allDrama / theArray.length;
 }
 
-/*
 // Iteration 5: Ordering by year - Order by year, ascending (in growing order)
-function orderByYear(theArray) {
-  sort!!
-}
+function orderByYear(theArray) {}
+//sort!
 
 // Iteration 6: Alphabetic Order - Order by title and print the first 20 titles
 function orderAlphabetically() {}
@@ -77,19 +86,19 @@ function turnHoursToMinutes() {}
 // BONUS - Iteration 8: Best yearly score average - Best yearly score average
 function bestYearAvg() {}
 
-*/
 
 // The following is required to make unit tests work.
-/* Environment setup. Do not modify the below code. */
-// if (typeof module !== 'undefined') {
-//   module.exports = {
-//     getAllDirectors,
-//     howManyMovies,
-//     scoresAverage,
-//     dramaMoviesScore,
-//     orderByYear,
-//     orderAlphabetically,
-//     turnHoursToMinutes,
-//     bestYearAvg,
-//   };
-// }
+// Environment setup. Do not modify the below code.
+
+if (typeof module !== 'undefined') {
+  module.exports = {
+    getAllDirectors,
+    howManyMovies,
+    scoresAverage,
+    dramaMoviesScore,
+    orderByYear,
+    orderAlphabetically,
+    turnHoursToMinutes,
+    bestYearAvg,
+  };
+};
